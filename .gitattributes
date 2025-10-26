@@ -1,0 +1,6 @@
+* text=auto
+*.cs     diff=csharp
+*.sln    merge=union
+*.csproj text eol=lf
+*.props  text eol=lf
+*.targets text eol=lf
