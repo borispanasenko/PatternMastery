@@ -1,0 +1,41 @@
+# IDEs & OS
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.DS_Store
+
+# Build output (recursive)
+**/bin/
+**/obj/
+**/TestResults/
+**/TestResult.xml
+**/BenchmarkDotNet.Artifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+# (SDK-style projects don't need /packages; uncomment if you use packages folder)
+# packages/
+
+# Logs & temp
+*.log
+*.tlog
+
+# Rider / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Coverage (if you use coverlet, etc.)
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+
+# Others often generated
+launchSettings.json

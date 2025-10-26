@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Foundations\Foundations.csproj" />
+    <ProjectReference Include="..\..\src\HashingLinear\HashingLinear.csproj" />
+    <ProjectReference Include="..\..\src\IntegrationDesign\IntegrationDesign.csproj" />
+    <ProjectReference Include="..\..\src\OptimizationState\OptimizationState.csproj" />
+    <ProjectReference Include="..\..\src\Structural\Structural.csproj" />
+    <ProjectReference Include="..\..\src\TraversalRecursion\TraversalRecursion.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Foundations\TwoPointers\FilteringPartitioning\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
