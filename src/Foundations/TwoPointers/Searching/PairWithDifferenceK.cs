@@ -51,7 +51,7 @@ public static class PairWithDifferenceK
     public static (int left, int right)? Find(int[] nums, int k)
     {
         if (nums is null || nums.Length < 2) return null;
-        if (k < 0) k = -k;
+        if (k < 0) return null;
 
         // Pair values with original indices, then sort by value.
         var arr = new (int val, int idx)[nums.Length];
@@ -59,8 +59,8 @@ public static class PairWithDifferenceK
             arr[t] = (nums[t], t);
         Array.Sort(arr, (a, b) => a.val.CompareTo(b.val));
 
-        int left = 0, right = 1;
-        while (left < arr.Length && right < arr.Length)
+        int left = 0, right = 1, n = arr.Length;
+        while (left < n && right < n)
         {
             if (left == right) { right++; continue; }
 
@@ -97,7 +97,7 @@ public static class PairWithDifferenceKSorted
     public static (int left, int right)? Find(int[] nums, int k)
     {
         if (nums is null || nums.Length < 2) return null;
-        if (k < 0) k = -k;
+        if (k < 0) return null;
 
         int left = 0, right = 1;
         while (left < nums.Length && right < nums.Length)

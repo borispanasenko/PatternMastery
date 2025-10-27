@@ -7,6 +7,7 @@
 *.userosscache
 *.sln.docstates
 .DS_Store
+Thumbs.db
 
 # Build output (recursive)
 **/bin/
@@ -15,10 +16,10 @@
 **/TestResult.xml
 **/BenchmarkDotNet.Artifacts/
 
-# NuGet
+# NuGet packages
 *.nupkg
 *.snupkg
-# (SDK-style projects don't need /packages; uncomment if you use packages folder)
+# If you ever use a local packages folder, uncomment:
 # packages/
 
 # Logs & temp
@@ -30,12 +31,31 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
 
-# Coverage (if you use coverlet, etc.)
+# Coverage (Coverlet, etc.)
+coverage/
 coverage*.json
 coverage*.xml
 coverage*.info
 *.coverage
 *.coveragexml
 
-# Others often generated
+# Secrets / local config (keep these out of git)
+*.env
+.env
+*.env.local
+*.secret
+*.secrets
+*.pfx
+
+# Visual Studio user files
+*.csproj.user
+*.vbproj.user
+
+# NCrunch (optional)
+*.ncrunchsolution
+*.ncrunchproject
+_NCrunch_*
+.ncrunchsolution
+
+# ASP.NET local launch profiles
 launchSettings.json
