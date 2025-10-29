@@ -102,6 +102,7 @@ public static class PairWithDifferenceKSorted
         int left = 0, right = 1;
         while (left < nums.Length && right < nums.Length)
         {
+            // State space = all (i, j) where i < j
             if (left == right) { right++; continue; }
 
             // var diff = (long)nums[right] - nums[left];

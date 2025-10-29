@@ -16,6 +16,7 @@ internal static class Program
             new PairWithDiffKDemo(),
             new ThreeSumDemo(),
             new ContainerMostWaterDemo(),
+            new ThreeSumClosestDemo(),
             // B. Filtering-Partitioning
             
             // II. Hashing & Linear Structures

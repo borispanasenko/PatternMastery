@@ -12,7 +12,8 @@ public static class ContainerMostWater
     /// </summary>
     public static (int area, int i, int j) Find(int[] heights)
     {
-        if (heights is null || heights.Length < 2) return (0, -1, -1);
+        if (heights is null || heights.Length < 2)
+            return (0, -1, -1);
 
         int i = 0, j = heights.Length - 1;
         long best = 0;
