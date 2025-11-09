@@ -29,11 +29,17 @@ public static class KSum
     {
         int n = a.Length;
 
-        // Simple pruning via min/max possible sums at this depth
-        if (start >= n) return;
-        long minSum = 0; for (int i = 0; i < k; i++) { int idx = start + i; if (idx >= n) return; minSum += a[idx]; }
-        long maxSum = 0; for (int i = 0; i < k; i++) { int idx = n - 1 - i; if (idx < start) return; maxSum += a[idx]; }
+        // Simple pruning
+        if (n - start < k) return; // early exit
+
+        // Aggressive pruning, checking extreme limits
+        if ((long)a[start] * k > target || (long)a[n - 1] * k < target) return;
+
+        // Precise pruning
+        long minSum = 0; for (int i = 0; i < k; i++) minSum += a[start + i];
+        long maxSum = 0; for (int i = 0; i < k; i++) maxSum += a[n - 1 - i];
         if (target < minSum || target > maxSum) return;
+
 
         if (k == 2)
         {

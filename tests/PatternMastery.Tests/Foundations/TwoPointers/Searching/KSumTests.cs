@@ -13,10 +13,10 @@ public class KSumTests
         var nums = new[] { -1, 0, 1, 2, -1, -4 };
         var triples = KSum.FindValues(nums, k: 3, target: 0);
 
-        triples.Should().BeEquivalentTo(new[]
+        triples.Should().BeEquivalentTo(new List<List<int>>
         {
-            new[] { -1, -1, 2 },
-            new[] { -1, 0, 1 },
+            new() { -1, -1, 2 },
+            new() { -1, 0, 1 }
         });
     }
 
@@ -26,11 +26,11 @@ public class KSumTests
         var nums = new[] { 1, 0, -1, 0, -2, 2 };
         var quads = KSum.FindValues(nums, k: 4, target: 0);
 
-        quads.Should().BeEquivalentTo(new[]
+        quads.Should().BeEquivalentTo(new List<List<int>>
         {
-            new[] { -2, -1, 1, 2 },
-            new[] { -2,  0, 0, 2 },
-            new[] { -1,  0, 0, 1 },
+            new() { -2, -1, 1, 2 },
+            new() { -2,  0, 0, 2 },
+            new() { -1,  0, 0, 1 }
         });
     }
 
