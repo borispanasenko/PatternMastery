@@ -16,7 +16,7 @@ public static class ThreeSum
     public static List<(int a, int b, int c)> FindValues(int[] nums)
     {
         var res = new List<(int, int, int)>();
-        if (nums == null || nums.Length < 3) return res;
+        if (nums is null || nums.Length < 3) return res;
 
         var a = (int[])nums.Clone();
         Array.Sort(a);
@@ -38,8 +38,7 @@ public static class ThreeSum
                     while (left < right && a[left] == lv) left++;
                     while (left < right && a[right] == rv) right--;
                 }
-                else if (sum < 0) left++;
-                else right--;
+                else if (sum < 0) left++; else right--;
             }
         }
         return res;
@@ -53,16 +52,12 @@ public static class ThreeSum
     public static List<(int i, int j, int k)> FindIndices(int[] nums)
     {
         var res = new List<(int, int, int)>();
-        if (nums == null || nums.Length < 3) return res;
+        if (nums is null || nums.Length < 3) return res;
 
         var a = new (int val, int idx)[nums.Length];
-        for (int t = 0; t < nums.Length; t++) a[t] = (nums[t], t);
-
-        Array.Sort(a, (x, y) =>
-        {
-            int c = x.val.CompareTo(y.val);
-            return c != 0 ? c : x.idx.CompareTo(y.idx); // deterministic among equals
-        });
+        for (int t = 0; t < nums.Length; t++)
+            a[t] = (nums[t], t);
+        Array.Sort(a); // ValueTuple<int,int> lexicographic sorting
 
         int n = a.Length;
         for (int i = 0; i < n - 2; i++)
@@ -76,19 +71,13 @@ public static class ThreeSum
                 long sum = (long)a[i].val + a[left].val + a[right].val;
                 if (sum == 0)
                 {
-                    var (p, q, r) = (a[i].idx, a[left].idx, a[right].idx);
-                    // normalize indices for readability (optional)
-                    if (p > q) (p, q) = (q, p);
-                    if (q > r) (q, r) = (r, q);
-                    if (p > q) (p, q) = (q, p);
-                    res.Add((p, q, r));
+                    res.Add((a[i].idx, a[left].idx, a[right].idx));
 
                     int lv = a[left].val, rv = a[right].val;
                     while (left < right && a[left].val == lv) left++;
                     while (left < right && a[right].val == rv) right--;
                 }
-                else if (sum < 0) left++;
-                else right--;
+                else if (sum < 0) left++; else right--;
             }
         }
         return res;

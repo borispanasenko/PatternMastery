@@ -22,15 +22,17 @@ public static class TwoSumSorted
     /// </returns>
     public static (int left, int right)? Find(int[] nums, int target)
     {
+        if (nums is null || nums.Length < 2 )
+            return null;
+        
         int left = 0, right = nums.Length - 1;
         while (left < right)
         {
-            var sum = Sum();
+            var sum = (long)nums[left] + nums[right];
             if (sum == target) return (left, right);
             if (sum < target) left++; else right--;
         }
 
         return null;
-        long Sum() => (long)nums[left] + nums[right];
     }
 }

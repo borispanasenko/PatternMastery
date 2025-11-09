@@ -96,11 +96,11 @@ public static class PairWithDifferenceKSorted
     /// <remarks>Time: O(n); Space: O(1).</remarks>
     public static (int left, int right)? Find(int[] nums, int k)
     {
+        int left = 0, right = 1;
         if (nums is null || nums.Length < 2) return null;
         if (k < 0) return null;
 
-        int left = 0, right = 1;
-        while (left < nums.Length && right < nums.Length)
+        while (right < nums.Length)
         {
             // State space = all (i, j) where i < j
             if (left == right) { right++; continue; }

@@ -12,25 +12,28 @@ public static class ContainerMostWater
     /// </summary>
     public static (int area, int i, int j) Find(int[] heights)
     {
+        long bArea = 0; int bI = -1, bJ = -1;
         if (heights is null || heights.Length < 2)
-            return (0, -1, -1);
-
+            return ((int)bArea, bI, bJ);
+        
         int i = 0, j = heights.Length - 1;
-        long best = 0;
-        int bi = -1, bj = -1;
-
         while (i < j)
         {
-            int h = Math.Min(heights[i], heights[j]);
-            long area = (long)h * (j - i);
-            if (area > best) { best = area; bi = i; bj = j; }
+            // h is the limiting factors / bottleneck
+            var h = Math.Min(heights[i], heights[j]);
+            // w is getting smaller but the formula stays the same
+            var w = (j - i);
+            // area is the core invariant
+            long area = (long)h * w;
+            if (area > bArea) { bArea = area; bI = i; bJ = j; }
 
             // Move the lower side inward to try for a taller min-height.
-            if (heights[i] <= heights[j]) i++;
-            else j--;
+            if (heights[i] <= heights[j]) i++; else j--;
         }
 
         // safe cast: width <= n, height int; fits in int for reasonable n (LeetCode style).
-        return ((int)best, bi, bj);
+        return ((int)bArea, bI, bJ);
     }
+    // Algorithmic reasoning pattern:
+    // Preconditions -> Limiting Factor (Bottleneck) -> Core Invariant -> Transition Rule -> Postconditions
 }
