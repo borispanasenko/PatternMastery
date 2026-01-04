@@ -13,4 +13,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BFS\" />
+    <Folder Include="Trees\" />
+  </ItemGroup>
+
 </Project>
