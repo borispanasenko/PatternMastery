@@ -20,7 +20,7 @@ public static class ThreeSum
 
         var a = (int[])nums.Clone();
         Array.Sort(a);
-        int n = a.Length;
+        var n = a.Length;
 
         for (int i = 0; i < n - 2; i++)
         {
@@ -30,7 +30,7 @@ public static class ThreeSum
             int left = i + 1, right = n - 1;
             while (left < right)
             {
-                long sum = (long)a[i] + a[left] + a[right];
+                var sum = (long)a[i] + a[left] + a[right];
                 if (sum == 0)
                 {
                     res.Add((a[i], a[left], a[right]));

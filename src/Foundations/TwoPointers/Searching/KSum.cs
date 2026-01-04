@@ -13,53 +13,78 @@ public static class KSum
     /// Returns unique K-tuples (as int[] of length k) whose VALUES sum to target.
     /// Tuples are in nondecreasing value order; result has no duplicates.
     /// </summary>
-    public static List<IList<int>> FindValues(int[] nums, int k, int target)
+    public interface IAnchorHeuristic
     {
+        IEnumerable<int> OrderCandidates(int[] a, int start, int k, long target);
+    }
+
+    public static List<IList<int>> FindValues(
+        int[] nums,
+        int k,
+        int target,
+        IAnchorHeuristic? h = null,
+        int? nodeBudget = null)
+    {
+        var path = new List<int>(k);
         var res = new List<IList<int>>();
-        if (nums is null || k < 2 || nums.Length < k) return res;
+        if (nums is null || nums.Length < k || k < 2) return res;
 
         var a = (int[])nums.Clone();
         Array.Sort(a);
 
-        DFS(a, start: 0, k: k, target: target, path: new List<int>(k), res);
+        var n = a.Length;
+        const int start = 0;
+        var end = n - 1;
+
+        DFS(a, n, start, end, k, target, path, res);
         return res;
     }
 
-    private static void DFS(int[] a, int start, int k, long target, List<int> path, List<IList<int>> res)
+    private static void DFS(
+        int[] a,
+        int n,
+        int start,
+        int end,
+        int k,
+        long target,
+        List<int> path,
+        List<IList<int>> res)
     {
-        int n = a.Length;
-
         // Simple pruning
         if (n - start < k) return; // early exit
 
         // Aggressive pruning, checking extreme limits
-        if ((long)a[start] * k > target || (long)a[n - 1] * k < target) return;
+        if ((long)a[start] * k > target || (long)a[end] * k < target) return;
 
         // Precise pruning
-        long minSum = 0; for (int i = 0; i < k; i++) minSum += a[start + i];
-        long maxSum = 0; for (int i = 0; i < k; i++) maxSum += a[n - 1 - i];
+        long minSum = 0, maxSum = 0;
+        for (var i = 0; i < k; i++) { minSum += a[start + i]; maxSum += a[end - i]; }
         if (target < minSum || target > maxSum) return;
 
 
         if (k == 2)
         {
-            TwoSum(a, start, target, path, res);
+            TwoSum(a, start, end, target, path, res);
             return;
         }
 
-        for (int i = start; i <= n - k; i++)
+        for (var i = start; i <= end - (k - 1); i++)
         {
-            if (i > start && a[i] == a[i - 1]) continue; // skip duplicate anchors
+            // De-dup on anchor
+            if (i > start && a[i] == a[i - 1]) continue; 
+
+            // Refined anchor pruning
+            if (a[i] + ((long)a[i + 1] * (k - 1)) > target) break;
+            if (a[i] + ((long)a[end] * (k - 1)) < target) continue;
 
             path.Add(a[i]);
-            DFS(a, i + 1, k - 1, target - a[i], path, res);
+            DFS(a, n, i + 1, end, k - 1, target - a[i], path, res);
             path.RemoveAt(path.Count - 1);
         }
     }
 
-    private static void TwoSum(int[] a, int left, long target, List<int> path, List<IList<int>> res)
+    private static void TwoSum(int[] a, int left, int right, long target, List<int> path, List<IList<int>> res)
     {
-        int right = a.Length - 1;
         while (left < right)
         {
             long sum = (long)a[left] + a[right];
